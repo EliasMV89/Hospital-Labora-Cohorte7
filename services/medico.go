@@ -1,4 +1,4 @@
-package servicios
+package services
 
 import (
 	"database/sql"
@@ -7,7 +7,7 @@ import (
 )
 
 type Medico struct {
-	Nombre string
+	Nombre string `json:"nombre"`
 }
 
 // Funcion para agregar un medico

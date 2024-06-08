@@ -1,4 +1,4 @@
-package servicios
+package services
 
 import (
 	"database/sql"
@@ -6,13 +6,13 @@ import (
 	"log"
 )
 
-type historialMedico struct {
-	idPaciente  int
-	diagnostico string
-	fecha       string
+type HistorialMedico struct {
+	IDPaciente  int    `json:"idpaciente"`
+	Diagnostico string `json:"diagnostico"`
+	Fecha       string `json:"fecha"`
 }
 
-// Funcion para agregar un historial por cada paciente ingresado
+// Función para agregar un historial por cada paciente ingresado
 func AgregarHistorial(db *sql.DB, idPaciente int) error {
 	// Consulta para agregar un registro en historial
 	query := `INSERT INTO HistorialMedico (IDPaciente, Diagnostico, Fecha) VALUES(?, 'Ingresado', NOW())`
@@ -27,15 +27,15 @@ func AgregarHistorial(db *sql.DB, idPaciente int) error {
 	return nil
 }
 
-// Funcion para actualizar el diagnostico de un paciente
+// Función para actualizar el diagnóstico de un paciente
 func ActualizarHistorialMedico(db *sql.DB, idPaciente int, diagnostico string) error {
-	// Consulta para actualizar el historial medico
+	// Consulta para actualizar el historial médico
 	query := `UPDATE HistorialMedico SET Diagnostico = ?, Fecha = NOW() WHERE IDPaciente = ?`
 	// Ejecuta la consulta
 	_, err := db.Exec(query, diagnostico, idPaciente)
 
 	if err != nil {
-		log.Printf("Error al actualizar el historial medico: %v", err)
+		log.Printf("Error al actualizar el historial médico: %v", err)
 		return err
 	}
 	fmt.Println("Historial actualizado correctamente.")
